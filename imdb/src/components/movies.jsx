@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import FilterList from "../common/filterList";
 import Loading from "../common/loading";
+import Pagination from "../common/pagination";
 import { getMovies, getGenreList } from "../services/fakeService";
 
 class Movies extends Component {
@@ -8,6 +9,7 @@ class Movies extends Component {
     movies: [],
     genreList: [],
     selectedGenere: { id: 0 },
+    selectedMovie: 1
   };
 
   componentDidMount() {
@@ -20,7 +22,7 @@ class Movies extends Component {
   }
 
   render() {
-    const { movies, genreList, selectedGenere } = this.state;
+    const { movies, genreList, selectedGenere, selectedMovie } = this.state;
 
     const filteredList =
       selectedGenere && selectedGenere.name
@@ -71,6 +73,7 @@ class Movies extends Component {
                   ))}
                 </tbody>
               </table>
+              <Pagination items={filteredList} selectedItem={selectedMovie} itemPerPage={5}/>
             </>
           ) : (
             <Loading />
