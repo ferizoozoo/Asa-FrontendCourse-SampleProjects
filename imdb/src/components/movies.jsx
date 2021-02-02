@@ -73,7 +73,7 @@ class Movies extends Component {
                   ))}
                 </tbody>
               </table>
-              <Pagination items={filteredList} selectedItem={selectedMovie} itemPerPage={5}/>
+              <Pagination totalItems={filteredList.length} itemPerPage={1}/>
             </>
           ) : (
             <Loading />
