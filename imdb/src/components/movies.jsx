@@ -9,7 +9,9 @@ class Movies extends Component {
     movies: [],
     genreList: [],
     selectedGenere: { id: 0 },
-    selectedMovie: 1
+    selectedMovie: 1,
+    page: 1,
+    itemsPerPage: 2
   };
 
   componentDidMount() {
@@ -21,13 +23,20 @@ class Movies extends Component {
     }, 1500);
   }
 
+  onPageClick = (page) => {
+    this.setState({
+      page: page
+    })
+  }
+
   render() {
-    const { movies, genreList, selectedGenere, selectedMovie } = this.state;
+    const { movies, genreList, selectedGenere, selectedMovie, page, itemsPerPage } = this.state;
 
     const filteredList =
       selectedGenere && selectedGenere.name
         ? movies.filter((x) => x.genre === selectedGenere.name)
         : movies;
+    var paginatedList = movies.slice((page - 1) * itemsPerPage, (page) * itemsPerPage);    
     const movieCount = filteredList.length;
 
     return (
@@ -61,7 +70,7 @@ class Movies extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredList.map((movie, index) => (
+                  {paginatedList.map((movie, index) => (
                     <tr>
                       <th scope="row">{index + 1}</th>
                       <td>{movie.title}</td>
@@ -73,7 +82,7 @@ class Movies extends Component {
                   ))}
                 </tbody>
               </table>
-              <Pagination items={filteredList} selectedItem={selectedMovie} itemPerPage={5}/>
+              <Pagination totalItems={filteredList.length} itemPerPage={itemsPerPage} onPageClick={this.onPageClick}/>
             </>
           ) : (
             <Loading />
