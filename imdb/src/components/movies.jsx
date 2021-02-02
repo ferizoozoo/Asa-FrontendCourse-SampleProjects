@@ -9,7 +9,8 @@ class Movies extends Component {
     movies: [],
     genreList: [],
     selectedGenere: { id: 0 },
-    selectedMovie: 1
+    selectedMovie: 1,
+    paginatedMovies: [],
   };
 
   componentDidMount() {
@@ -21,13 +22,27 @@ class Movies extends Component {
     }, 1500);
   }
 
+  sliceMovies(pageIndex, itemPerPage) {
+    var firstIndex = pageIndex * itemPerPage;
+    var lastIndex = (pageIndex + 1) * itemPerPage;
+    this.setState({
+      paginatedMovies: this.state.movies.slice(firstIndex, lastIndex),
+    });
+  }
+
   render() {
-    const { movies, genreList, selectedGenere, selectedMovie } = this.state;
+    const {
+      movies,
+      genreList,
+      selectedGenere,
+      selectedMovie,
+      paginatedMovies,
+    } = this.state;
 
     const filteredList =
       selectedGenere && selectedGenere.name
-        ? movies.filter((x) => x.genre === selectedGenere.name)
-        : movies;
+        ? paginatedMovies.filter((x) => x.genre === selectedGenere.name)
+        : paginatedMovies;
     const movieCount = filteredList.length;
 
     return (
@@ -73,7 +88,13 @@ class Movies extends Component {
                   ))}
                 </tbody>
               </table>
-              <Pagination totalItems={filteredList.length} itemPerPage={1}/>
+              <Pagination
+                totalItems={filteredList.length}
+                itemPerPage={1}
+                onSlice={(pageIndex) => {
+                  this.sliceMovies(pageIndex);
+                }}
+              />
             </>
           ) : (
             <Loading />
