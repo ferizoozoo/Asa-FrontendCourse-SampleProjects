@@ -16,10 +16,6 @@ code {
   cursor: pointer;
 }
 
-<<<<<<< HEAD
 .notdisplayable {
-=======
-.not-displayable {
->>>>>>> 43e64de99983040bf8863a4220b237fd2973a6ed
   display: none;
 }
