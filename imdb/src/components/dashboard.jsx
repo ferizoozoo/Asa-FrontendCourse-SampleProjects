@@ -1,7 +1,20 @@
 import React from "react";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 const baseUrl = "https://jsonplaceholder.typicode.com/posts";
+
+axios.defaults.headers.common["auth-token"] = localStorage.getItem(
+  "auth-token"
+);
+
+axios.interceptors.response.use(null, (ex) => {
+  if (ex.response.status === 500) {
+    alert("An Unknown Exception occured.");
+  }
+
+  toast.error("an error occured.....");
+});
 
 class Dashboard extends React.Component {
   state = {

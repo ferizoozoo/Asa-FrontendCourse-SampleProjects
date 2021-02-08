@@ -7,10 +7,13 @@ import Posts from "./components/posts";
 import Admin from "./components/admin";
 import Dashboard from "./components/dashboard";
 import Customers from "./components/customers";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/react-toastify.css";
 
 function App() {
   return (
     <>
+      <ToastContainer />
       <Header />
       <div className="container">
         <Switch>

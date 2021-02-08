@@ -1,7 +1,12 @@
 import React from "react";
+import Form from '../common/form';
 
 const Customers = () => {
-  return <h1>Customers</h1>;
+  return (
+    <div>
+      <Form></Form>
+    </div>
+  );
 };
 
 export default Customers;
