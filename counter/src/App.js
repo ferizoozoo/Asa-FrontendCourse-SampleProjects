@@ -2,17 +2,9 @@ import React, { Component } from "react";
 import Counters from "./components/counters";
 import Navbar from "./components/navbar";
 
-class App extends Component {
-  constructor() {
-    super();
+export const AppContext = createContext({});
 
-    console.log("App - Constructor");
-  }
-
-  componentDidMount() {
-    console.log("App - Mounted");
-  }
-
+const App = () => {
   state = {
     counters: [
       { id: 1, title: "xbox", value: 0 },
@@ -43,19 +35,20 @@ class App extends Component {
     return this.state.counters.filter((c) => c.value > 0).length;
   };
 
-  render() {
-    console.log("App - Rendered");
-    return (
-      <>
-        <Navbar totalCount={this.getTotalCount()} />
-        <Counters
-          counters={this.state.counters}
-          onDelete={this.handleDelete}
-          onValueChanged={this.handleValueChanged}
-        />
-      </>
-    );
-  }
-}
-
+  const [data, setData] = useState(
+    { id: 1, title: "xbox", value: 0 },
+    { id: 2, title: "ps4", value: 0 },
+    { id: 3, title: "ps5", value: 0 }
+  );
+  return (
+    <AppContext.Provider value={[data, setData]}>
+      <Navbar totalCount={this.getTotalCount()} />
+      <Counters
+        counters={this.state.counters}
+        onDelete={this.handleDelete}
+        onValueChanged={this.handleValueChanged}
+      />
+    </AppContext.Provider>
+  );
+};
 export default App;

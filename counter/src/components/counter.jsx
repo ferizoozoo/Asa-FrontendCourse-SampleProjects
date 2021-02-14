@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
+import AppContext from "../App";
+
 class Counter extends Component {
   componentDidUpdate() {
     console.log("Counter - Updated");
@@ -7,6 +9,7 @@ class Counter extends Component {
   render() {
     console.log("Counter - Rendered");
     const { counter, onChangeValue, onDelete, children } = this.props;
+    const value = useContext(AppContext);
 
     return (
       <div>
